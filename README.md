@@ -1,6 +1,8 @@
 # Django REST Framework Learning
 
-<img src="https://raw.githubusercontent.com/encode/django-rest-framework/main/docs/img/logo.png" alt="Django REST Framework" width="280">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/djangorest/djangorest-plain-wordmark.svg"
+     alt="Django REST Framework"
+     width="300">
 
 A structured learning repository for my Django REST Framework journey.
 
