@@ -18,7 +18,7 @@ This repository contains my practice code, experiments, and implementations whil
 | 4 | Serializer Subclasses and Aggregated API Data | [ ✅ ] |
 | 5 | django-silk for Profiling and Optimization | [ ✅ ] |
 | 6 | Generic Views: ListAPIView and RetrieveAPIView | [ ✅ ] |
-| 7 | Dynamic Filtering with `get_queryset()` | [ ] |
+| 7 | Dynamic Filtering with `get_queryset()` | [ ✅ ] |
 | 8 | Permissions and Testing Permissions | [ ] |
 | 9 | APIView Class | [ ] |
 | 10 | Creating Data: ListCreateAPIView and Generic View Internals | [ ] |
