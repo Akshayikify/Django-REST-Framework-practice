@@ -20,7 +20,7 @@ This repository contains my practice code, experiments, and implementations whil
 | 6 | Generic Views: ListAPIView and RetrieveAPIView | [ ✅ ] |
 | 7 | Dynamic Filtering with `get_queryset()` | [ ✅ ] |
 | 8 | Permissions and Testing Permissions | [ ] |
-| 9 | APIView Class | [ ] |
+| 9 | APIView Class | [ ✅ ] |
 | 10 | Creating Data: ListCreateAPIView and Generic View Internals | [ ] |
 | 11 | Customizing Permissions in Generic Views | [ ] |
 | 12 | JWT Authentication with `djangorestframework-simplejwt` | [ ] |
