@@ -3,7 +3,7 @@ from rest_framework import serializers
 #Import all model classes from models module
 from .models import Product,Order,OrderItem
 #Create a Product Serializer --> Json 
-class ProductSerializer(serializers.Serializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model=Product
         fields=['id','name','price','stock']
@@ -20,8 +20,9 @@ class OrderItemSerializer(serializers.ModelSerializer):
            'product','order','quantity'
         ]
 class OrderSerializer(serializers.ModelSerializer):
-    items=OrderItemSerializer()
+    items=OrderItemSerializer(many=True,read_only=True)
     class Meta:
         model=Order
         fields=['order_id','user','created_at']
+        
         
