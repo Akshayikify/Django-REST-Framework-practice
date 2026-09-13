@@ -11,7 +11,7 @@ from rest_framework import status
 def get_or_update_delete(request,pk):
     
     if request.method=='PUT':
-        serializer=ProductSerializer(Product,data=request.data)
+        serializer=ProductSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -26,14 +26,10 @@ def get_or_update_delete(request,pk):
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-        
-
-        
-        
 @api_view(['GET','POST'])
 def product_lists(request):
     if request.method=='POST':
-        serializer=ProductSerializer(Product,data=request.data)
+        serializer=ProductSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
