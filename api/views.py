@@ -1,11 +1,11 @@
 from rest_framework.decorators import api_view
 from django.http import JsonResponse,HttpResponse
 from .models import Product,Order,OrderItem
-from .serializers import ProductSerializer
+from .serializers import ProductSerializer,OrderSerializer,ProductInfoSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-
+from django.db.models import Max
 # Creating get and post requests
 @api_view(['GET','PUT','DELETE','PATCH'])
 def get_or_update_delete(request,pk):
@@ -50,4 +50,18 @@ def product_lists(request):
         serializer=ProductSerializer(products,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def order_list(request):
+    orders=Order.objects.prefetch_related('items')
+    serializer=OrderSerializer(orders,many=True)
+    return Response(serializer.data,status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def product_info(request):
+    products=Product.objects.all()
+    serializer=ProductInfoSerializer({
+        'products': products,
+        'count': len(products),
+        'max_price': products.aggregate(max_price=Max('price'))['max_price']
+    })
+    return Response(serializer.data)
