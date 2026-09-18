@@ -8,30 +8,32 @@ from rest_framework import status
 from django.db.models import Max
 from rest_framework import generics
 # Creating get and post requests
-class ProductList(generics.ListAPIView):
-    queryset=Product.objects.all()
+class ProductListAPIView(generics.ListAPIView):
+    queryset=Product.objects.filter(stock__gte=0)
     serializer_class=ProductSerializer
         
+class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Product.objects.all()
+    serializer_class=ProductSerializer
+    lookup_url_kwarg='product_id'
 
-@api_view(['GET','POST'])
-def product_lists(request):
-    if request.method=='POST':
-        serializer=ProductSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    else:
-        products=Product.objects.all()
-        serializer=ProductSerializer(products,many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+# class OrderListAPIView(generics.ListAPIView):
+#     queryset=Order.objects.prefetch_related('items__product').all()
+#     serializer_class=OrderSerializer
 
-@api_view(['GET'])
-def order_list(request):
-    orders=Order.objects.prefetch_related('items__product').all()
-    serializer=OrderSerializer(orders,many=True)
-    return Response(serializer.data,status=status.HTTP_200_OK)
+class UserOrderListAPIView(generics.ListAPIView):
+    queryset=Order.objects.prefetch_related('items__product').all()
+    serializer_class=OrderSerializer
+    def get_queryset(self):
+        user = self.request.user
+        qs=super().get_queryset()
+        return qs.filter(user=user)
+
+# @api_view(['GET'])
+# def order_list(request):
+#     orders=Order.objects.prefetch_related('items__product').all()
+#     serializer=OrderSerializer(orders,many=True)
+#     return Response(serializer.data,status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def product_info(request):
