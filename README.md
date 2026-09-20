@@ -19,11 +19,11 @@ This repository contains my practice code, experiments, and implementations whil
 | 5 | django-silk for Profiling and Optimization | [ ✅ ] |
 | 6 | Generic Views: ListAPIView and RetrieveAPIView | [ ✅ ] |
 | 7 | Dynamic Filtering with `get_queryset()` | [ ✅ ] |
-| 8 | Permissions and Testing Permissions | [ ] |
+| 8 | Permissions and Testing Permissions | [ ✅ ] |
 | 9 | APIView Class | [ ✅ ] |
-| 10 | Creating Data: ListCreateAPIView and Generic View Internals | [ ] |
-| 11 | Customizing Permissions in Generic Views | [ ] |
-| 12 | JWT Authentication with `djangorestframework-simplejwt` | [ ] |
+| 10 | Creating Data: ListCreateAPIView and Generic View Internals | [ ✅ ] |
+| 11 | Customizing Permissions in Generic Views | [ ✅ ] |
+| 12 | JWT Authentication with `djangorestframework-simplejwt` | [ ✅ ] |
 | 13 | Refresh Tokens and JWT Authentication | [ ] |
 | 14 | Updating and Deleting Data | [ ] |
 | 15 | API Documentation with `drf-spectacular` | [ ] |

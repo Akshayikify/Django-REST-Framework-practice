@@ -7,13 +7,24 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from django.db.models import Max
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAdminUser,AllowAny
 from rest_framework.views import APIView
 # Creating get and post requests
-class ProductListAPIView(generics.ListAPIView):
-    queryset=Product.objects.filter(stock__gte=0)
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+    queryset=Product.objects.all()
     serializer_class=ProductSerializer
-        
+    def get_permissions(self):
+        self.permission_classes=[AllowAny]
+        if self.request.method=='POST':
+            self.permission_classes=[IsAdminUser]
+        return super().get_permissions()
+
+# class ProductCreateAPIView(generics.CreateAPIView):
+#     queryset=Product.objects.all()
+#     serializer_class=ProductSerializer
+#     def create(self, request, *args, **kwargs):
+#         print(request.data) 
+#         return super().create(request, *args, **kwargs)  
 class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset=Product.objects.all()
     serializer_class=ProductSerializer
@@ -42,12 +53,3 @@ class ProductInfo(APIView):
         })
         return Response(serializer.data)
         
-# @api_view(['GET'])
-# def product_info(request):
-#     products=Product.objects.all()
-#     serializer=ProductInfoSerializer({
-#         'products': products,
-#         'count': len(products),
-#         'max_price': products.aggregate(max_price=Max('price'))['max_price']
-#     })
-#     return Response(serializer.data)
