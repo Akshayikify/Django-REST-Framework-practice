@@ -26,8 +26,8 @@ This repository contains my practice code, experiments, and implementations whil
 | 12 | JWT Authentication with `djangorestframework-simplejwt` | [ ✅ ] |
 | 13 | Refresh Tokens and JWT Authentication | [ ✅ ] |
 | 14 | Updating and Deleting Data | [ ✅ ] |
-| 15 | API Documentation with `drf-spectacular` | [ ] |
-| 16 | Filtering with `django-filter` | [ ] |
+| 15 | API Documentation with `drf-spectacular` | [ ✅ ] |
+| 16 | Filtering with `django-filter` | [ ✅ ] |
 | 17 | SearchFilter and OrderingFilter | [ ] |
 | 18 | Custom Filter Backends | [ ] |
 | 19 | API Pagination: PageNumberPagination and LimitOffsetPagination | [ ] |

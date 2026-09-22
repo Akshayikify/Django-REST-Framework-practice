@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'silk',
-    # 'rest_framework.authtoken',
+    'drf_spectacular',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -145,5 +146,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'E-Commerce API',
+    'DESCRIPTION': 'A simple product and order API to serve the clients',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
