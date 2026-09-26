@@ -30,7 +30,7 @@ This repository contains my practice code, experiments, and implementations whil
 | 16 | Filtering with `django-filter` | [ ✅ ] |
 | 17 | SearchFilter and OrderingFilter | [ ✅ ] |
 | 18 | Custom Filter Backends | [ ✅ ] |
-| 19 | API Pagination: PageNumberPagination and LimitOffsetPagination | [ ] |
+| 19 | API Pagination: PageNumberPagination and LimitOffsetPagination | [ ✅ ] |
 | 20 | Viewsets and Routers | [ ] |
 | 21 | Viewset Actions, Filtering and Permissions | [ ] |
 | 22 | Viewset Permissions: Admin vs Normal User | [ ] |
