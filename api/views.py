@@ -14,6 +14,7 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
+from rest_framework import viewsets
 # Creating get and post requests
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset=Product.objects.order_by('pk')
@@ -42,19 +43,23 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method in ['PUT','DELETE','PATCH']:
             self.permission_classes=[IsAdminUser]
         return super().get_permissions()
-
-class OrderListAPIView(generics.ListAPIView):
+class OrderViewSet(viewsets.ViewSet):
     queryset=Order.objects.prefetch_related('items__product').all()
     serializer_class=OrderSerializer
+    permission_classes=[AllowAny]
 
-class UserOrderListAPIView(generics.ListAPIView):
-    queryset=Order.objects.prefetch_related('items__product').all()
-    serializer_class=OrderSerializer
-    permission_classes=[IsAuthenticated]
-    def get_queryset(self):
-        user = self.request.user
-        qs=super().get_queryset()
-        return qs.filter(user=user)
+# class OrderListAPIView(generics.ListAPIView):
+#     queryset=Order.objects.prefetch_related('items__product').all()
+#     serializer_class=OrderSerializer
+
+# class UserOrderListAPIView(generics.ListAPIView):
+#     queryset=Order.objects.prefetch_related('items__product').all()
+#     serializer_class=OrderSerializer
+#     permission_classes=[IsAuthenticated]
+#     def get_queryset(self):
+#         user = self.request.user
+#         qs=super().get_queryset()
+#         return qs.filter(user=user)
 class ProductInfo(APIView):
     permission_classes=[IsAuthenticated]
     def get(self,request):
