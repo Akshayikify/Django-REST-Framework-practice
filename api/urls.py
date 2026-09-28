@@ -8,6 +8,7 @@ urlpatterns=[
     path('products/<int:product_id>/',views.ProductDetailAPIView.as_view()),
 ]
 
-router = DefaultRouter()
-router.register('oreders',views.OrderViewSet)
-urlpatterns += router.urls
+router=DefaultRouter()
+router.register(r'orders',views.OrderViewSet)
+url=router.urls
+urlpatterns+=url

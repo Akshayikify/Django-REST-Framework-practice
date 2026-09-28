@@ -43,10 +43,12 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method in ['PUT','DELETE','PATCH']:
             self.permission_classes=[IsAdminUser]
         return super().get_permissions()
-class OrderViewSet(viewsets.ViewSet):
-    queryset=Order.objects.prefetch_related('items__product').all()
+class OrderViewSet(viewsets.ModelViewSet):
+    queryset=Order.objects.prefetch_related('items__product')
     serializer_class=OrderSerializer
     permission_classes=[AllowAny]
+    pagination_class = None
+    
 
 # class OrderListAPIView(generics.ListAPIView):
 #     queryset=Order.objects.prefetch_related('items__product').all()
