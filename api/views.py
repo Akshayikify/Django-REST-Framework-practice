@@ -24,10 +24,10 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     search_fields=['name','description']
     ordering_fields=['name','price']
     pagination_class = LimitOffsetPagination
-    # pagination_class.page_size = 3
-    # pagination_class.page_query_param = 'page_num'
-    # pagination_class.page_size_query_param = 'size'
-    # pagination_class.max_page_size=4
+    pagination_class.default_limit = 4
+    pagination_class.max_limit = 10
+    pagination_class.limit_query_param = 'lmt'
+    pagination_class.offset_query_param = 'ofst'
     def get_permissions(self):
         self.permission_classes=[AllowAny]
         if self.request.method=='POST':
