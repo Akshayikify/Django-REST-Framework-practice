@@ -9,12 +9,14 @@ from django.db.models import Max
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated,IsAdminUser,AllowAny
 from rest_framework.views import APIView
-from api.filters import ProductFilter,InStockFilterBackend
+from api.filters import ProductFilter,InStockFilterBackend,OrderFilter
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 from rest_framework import viewsets
+from api.pagination import CustomProductPagination,OrderPagination
+from rest_framework.decorators import action
 # Creating get and post requests
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset=Product.objects.order_by('pk')
@@ -23,11 +25,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter,InStockFilterBackend]
     search_fields=['name','description']
     ordering_fields=['name','price']
-    pagination_class = LimitOffsetPagination
-    pagination_class.default_limit = 4
-    pagination_class.max_limit = 10
-    pagination_class.limit_query_param = 'lmt'
-    pagination_class.offset_query_param = 'ofst'
+    pagination_class = CustomProductPagination
     def get_permissions(self):
         self.permission_classes=[AllowAny]
         if self.request.method=='POST':
@@ -47,7 +45,16 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset=Order.objects.prefetch_related('items__product')
     serializer_class=OrderSerializer
     permission_classes=[AllowAny]
-    pagination_class = None
+    pagination_class = OrderPagination
+    filterset_class=(OrderFilter)
+    
+    @action(detail = False,methods = ['get'],permission_classes=[IsAuthenticated])
+    def user_orders(self,request):
+        orders = self.get_queryset().filter(user=request.user)
+        serializer = self.get_serializer(orders,many = True)
+        return Response(serializer.data)
+        
+        
     
 
 # class OrderListAPIView(generics.ListAPIView):
