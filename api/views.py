@@ -44,10 +44,14 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset=Order.objects.prefetch_related('items__product')
     serializer_class=OrderSerializer
-    permission_classes=[AllowAny]
+    permission_classes=[IsAuthenticated]
     pagination_class = OrderPagination
     filterset_class=(OrderFilter)
-    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if not self.request.user.is_staff:
+            qs=qs.filter(user=self.request.user)
+        return qs
     @action(detail = False,methods = ['get'],permission_classes=[IsAuthenticated])
     def user_orders(self,request):
         orders = self.get_queryset().filter(user=request.user)
